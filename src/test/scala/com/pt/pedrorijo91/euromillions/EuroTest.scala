@@ -6,14 +6,6 @@ import scala.collection.mutable.SortedSet
 
 class EuroTest extends FunSuite  {
 
-  /*
-   test randomInt
-   test randomNumber
-   test randomStar
-   test number of numbers
-   test number of stars
-   */
-
   test("generateTicket should return valid ticket") {
     val ticket: (SortedSet[Int], SortedSet[Int]) = Generator.generateTicket
 
@@ -31,8 +23,8 @@ class EuroTest extends FunSuite  {
   }
 
 
-  test("test 1000 ticket calls") {
-    1 to 1000 foreach(x => {
+  test("test 1000 ticket generator calls") {
+    1 to 1000 foreach(_ => {
       val ticket: (SortedSet[Int], SortedSet[Int]) = Generator.generateTicket
 
       assert(ticket.productArity === 2)
@@ -47,5 +39,19 @@ class EuroTest extends FunSuite  {
       assert(stars.size === NumberOfStars)
       assert(stars.forall(e => e > 0 && e < StarsMaxNumber))
     })
+  }
+
+  test("sorted numbers") {
+    val (numbers: SortedSet[Int],_) = Generator.generateTicket
+
+    numbers.foldLeft (true, None:Option[Int]) {(acc,item) =>
+      (acc._1 && acc._2.map(_ <= item).getOrElse(true), Some(item))}._1
+  }
+
+  test("sorted stars") {
+    val (_, stars: SortedSet[Int]) = Generator.generateTicket
+
+    stars.foldLeft (true, None:Option[Int]) {(acc,item) =>
+      (acc._1 && acc._2.map(_ <= item).getOrElse(true), Some(item))}._1
   }
 }

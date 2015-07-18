@@ -14,15 +14,6 @@ object Generator {
 
    should specify number of numbers to take
    should specify number of stars to take
-
-   should check duplicates on numbers
-   should check duplicates on starts
-
-   test randomInt
-   test randomNumber
-   test randomStar
-   test number of numbers
-   test number of stars
    */
 
     val (numbers: SortedSet[Int], stars: SortedSet[Int]) = generateTicket

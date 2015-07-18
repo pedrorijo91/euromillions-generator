@@ -6,9 +6,12 @@ import ArgotConverters._
 import scala.collection.mutable
 import scala.collection.mutable.{ListBuffer, SortedSet}
 
+import ch.qos.logback.classic.Logger
+import org.slf4j.LoggerFactory
 
 object Generator {
 
+  val logger = LoggerFactory.getLogger(Generator.getClass).asInstanceOf[Logger]
 
   val parser = new ArgotParser("Euromillions")
 
@@ -27,22 +30,25 @@ object Generator {
     parser.parse(args)
 
     numbersArgs.value match {
-      case Nil => println("NONE numbers")
-      case numbers@_ => preNumbers ++= numbers
+      case Nil => logger.info("No pre-selected numbers as command line arguments")
+      case numbers : List[Int] => {
+        logger.info("Received pre-selected numbers as command line arguments: " + numbers.mkString(", "))
+        preNumbers ++= numbers
+      }
     }
 
     starsArgs.value match {
-      case Nil => println("NONE stars")
-      case stars@_ => preStars ++= stars
+      case Nil => logger.info("No pre-selected stars as command line arguments")
+      case stars : List[Int] => {
+        logger.info("Received pre-selected stars as command line arguments: " + stars.mkString(", "))
+        preStars ++= stars
+      }
     }
 
     /*
      TODO
-
      should specify number of numbers to take
      should specify number of stars to take
-
-     log
      */
 
     val (numbers: SortedSet[Int], stars: SortedSet[Int]) = generateTicket(preNumbers.toList, preStars.toList)
@@ -57,11 +63,15 @@ object Generator {
     val stars: mutable.SortedSet[Int] = mutable.SortedSet(preStars: _*)
 
     while (numbers.size < NumberOfRegularNumbers) {
-      numbers += getRandomNumber
+      val n = getRandomNumber
+      logger.debug("Trying to add number '" + n + "' to existent numbers: " + numbers.mkString(", ") + ". Duplicate element? " + numbers.contains(n))
+      numbers += n
     }
 
     while (stars.size < NumberOfStars) {
-      stars += getRandomStar
+      val s = getRandomStar
+      logger.debug("Trying to add star '" + s +  "' to existent numbers: " + stars.mkString(", ") + ". Duplicate element? " + stars.contains(s))
+      stars += s
     }
     (numbers, stars)
   }

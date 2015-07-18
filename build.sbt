@@ -8,3 +8,5 @@ scalaVersion := "2.11.7"
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 
 libraryDependencies += "org.clapper" %% "argot" % "1.0.3"
+
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.1.2"

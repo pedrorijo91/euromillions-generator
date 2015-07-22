@@ -24,7 +24,7 @@ object Generator {
 
   val preStars: collection.mutable.ListBuffer[Int] = ListBuffer.empty
 
-  def main(args: Array[String]): Unit = {
+   def main(args: Array[String]): Unit = {
 
     val processedArgs = processArgs(parser, args)
     val argNumbers = processedArgs._1

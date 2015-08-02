@@ -1,16 +1,15 @@
 package com.pt.pedrorijo91.euromillions
 
-import ch.qos.logback.classic.Logger
-import org.clapper.argot.{ArgotParser, MultiValueOption}
 import org.clapper.argot.ArgotConverters._
+import org.clapper.argot.{ArgotParser, MultiValueOption}
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
-import scala.collection.mutable.{ListBuffer, SortedSet}
+import scala.collection.mutable.ListBuffer
 
 object Generator {
 
-  val logger = LoggerFactory.getLogger(Generator.getClass).asInstanceOf[Logger]
+  val logger = LoggerFactory.getLogger(Generator.getClass)
 
   val parser = new ArgotParser("Euromillions")
 
@@ -33,7 +32,7 @@ object Generator {
     preNumbers ++= argNumbers
     preStars ++= argStars
 
-    val ticket  = generateTicket(preNumbers.toList, preStars.toList)
+    val ticket = generateTicket(preNumbers.toList, preStars.toList)
     val numbers = ticket._1
     val stars = ticket._2
 
@@ -91,13 +90,15 @@ object Generator {
     val stars: mutable.SortedSet[Int] = mutable.SortedSet(preStars: _*)
 
 
-    while (numbers.size < NumberOfRegularNumbers) { //TODO: replace while by recursion
+    while (numbers.size < NumberOfRegularNumbers) {
+      //TODO: replace while by recursion
       val n = genRandomNumber
       logger.debug("Trying to add number '" + n + "' to existent numbers: " + numbers.mkString(", ") + ". Duplicate element? " + numbers.contains(n))
       numbers += n
     }
 
-    while (stars.size < NumberOfStars) { //TODO: replace while by recursion
+    while (stars.size < NumberOfStars) {
+      //TODO: replace while by recursion
       val s = genRandomStar
       logger.debug("Trying to add star '" + s + "' to existent stars: " + stars.mkString(", ") + ". Duplicate element? " + stars.contains(s))
       stars += s

@@ -6,7 +6,7 @@
 ##Euromillions random bet generator.
 Generate random bets for [Euromillions](http://www.euro-millions.com/).
 
-##How to run
+###How to run
 Just use the command `sbt run` and you will get 5 random numbers, and 2 random stars.
 
 ###Using lucky numbers
@@ -26,6 +26,19 @@ Examples:
 
 > If you pass invalid numbers/stars, those will be ignored.
 
-> If you pass more than allowed number of numbers/stars (5/2), then only the first ones will be considered. 
+> If you pass more than allowed number of numbers/stars (5/2), then only the first ones will be considered.
 
 > Numbers and stars are first filtered by valid choices, and then limited.
+
+##Draw results checker
+Alternatively, it is also possible to check for last draw results. All you need to do is to add a flag:
+`sbt "run -p"` or `sbt "run --prize"`
+
+Additionally you can provide your ticket(s) and it will check if you've won something, and how much.
+
+In `src/main/resources/application.conf.example` you can see how to provide required configurations:
+
+* `euromillions.results.api.key` is the [mashape](https://www.mashape.com/) key for fetching draw data through [euromillions endpoint](https://www.mashape.com/creativesolutions/euromillions#findlast)
+* your tickets are provided as a list of numbers and a list of stars, as you may see in the [configuration example](https://github.com/pedrorijo91/euromillions-generator/blob/master/src/main/resources/application.conf.example)
+
+> configuration file parsed with [typesafehub/config](https://github.com/typesafehub/config) using [HOCON](https://github.com/typesafehub/config/blob/master/HOCON.md) format

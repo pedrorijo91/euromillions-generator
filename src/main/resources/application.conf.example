@@ -1,0 +1,19 @@
+euromillions {
+	results {
+        	api.key="YOUR KEY"
+    }
+    	tickets : [
+		{
+			ticket : {
+				numbers=[14,20,27,29,44],
+				stars=[6,9]
+			}
+		},
+		{
+			ticket : {
+				numbers=[6,7,8,9,10],
+				stars=[7,6]
+			}
+		}
+	]
+}

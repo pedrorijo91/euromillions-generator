@@ -5,7 +5,7 @@ import org.scalatest._
 import scala.collection.mutable
 import scala.collection.mutable.SortedSet
 
-class EuroTest extends FunSuite {
+class GeneratorTest extends FunSuite {
 
   def validateTicket(ticket: (mutable.SortedSet[Int], mutable.SortedSet[Int])): Unit = {
 
